@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detect Key Pressed</title>
+    <script>
+        function displayKeyPressed(event) {
+            const display = document.getElementById("keyDisplay");
+            display.textContent = `You pressed: ${event.key}`;
+        }
+        window.addEventListener("keydown", displayKeyPressed);
+    </script>
+</head>
+<body>
+    <h1>Detect Key Pressed</h1>
+    <p id="keyDisplay">Press any key to see the result here.</p>
+</body>
+</html>

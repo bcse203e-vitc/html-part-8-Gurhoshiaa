@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Digital Clock</title>
+    <style>
+        #clock {
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #toggleButton {
+            margin: 20px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        let is24HourFormat = true;
+
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            let ampm = '';
+
+            if (!is24HourFormat) {
+                ampm = hours >= 12 ? ' PM' : ' AM';
+                hours = hours % 12 || 12;
+            }
+
+            const timeString = `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}${ampm}`;
+            document.getElementById('clock').textContent = timeString;
+        }
+
+        function padZero(num) {
+            return num.toString().padStart(2, '0');
+        }
+
+        function toggleFormat() {
+            is24HourFormat = !is24HourFormat;
+            updateClock();  // Update the clock immediately after toggling the format
+        }
+
+        setInterval(updateClock, 1000);
+        window.onload = updateClock;
+    </script>
+</head>
+<body>
+    <h1>Digital Clock</h1>
+    <div id="clock"></div>
+    <button id="toggleButton" onclick="toggleFormat()">12-hour format/ 24-hour format</button>
+</body>
+</html>
