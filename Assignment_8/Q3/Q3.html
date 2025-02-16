@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Carousel</title>
+    <style>
+        .carousel {
+            position: relative;
+            max-width: 600px;
+            margin: auto;
+            overflow: hidden;
+        }
+        .carousel img {
+            width: 100%;
+            display: none;
+        }
+        .carousel img.active {
+            display: block;
+        }
+        .carousel button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .carousel button.prev {
+            left: 0;
+        }
+        .carousel button.next {
+            right: 0;
+        }
+    </style>
+    <script>
+        let currentIndex = 0;
+        let timer;
+
+        window.onload = function() {
+            showSlide(currentIndex);
+            startAutoSlide();
+        };
+
+        function showSlide(index) {
+            const slides = document.querySelectorAll(".carousel img");
+            slides.forEach(slide => slide.classList.remove("active"));
+            slides[index].classList.add("active");
+        }
+
+        function nextSlide() {
+            const slides = document.querySelectorAll(".carousel img");
+            currentIndex = (currentIndex + 1) % slides.length;
+            showSlide(currentIndex);
+        }
+
+        function prevSlide() {
+            const slides = document.querySelectorAll(".carousel img");
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            showSlide(currentIndex);
+        }
+
+        function startAutoSlide() {
+            timer = setInterval(nextSlide, 3000);
+        }
+
+        function stopAutoSlide() {
+            clearInterval(timer);
+        }
+    </script>
+</head>
+<body>
+    <div class="carousel" onmouseover="stopAutoSlide()" onmouseout="startAutoSlide()">
+        <button class="prev" onclick="prevSlide()">Previous</button>
+        <img src="image1.jpg" alt="Image 1" class="active">
+        <img src="image2.jpg" alt="Image 2">
+        <img src="image3.jpg" alt="Image 3">
+        <img src="image4.jpg" alt="Image 4">
+        <img src="image5.jpg" alt="Image 5">
+        <img src="image6.jpg" alt="Image 6">
+        <button class="next" onclick="nextSlide()">Next</button>
+    </div>
+</body>
+</html>
